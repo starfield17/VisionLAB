@@ -21,3 +21,11 @@ This document defines the rules that coding agents must follow when collaboratin
 
 - This file itself is a repo constraint file, not subject to the "documents must not contain local environment info" rule; actual env names can be maintained here.
 - If rules change or new ones are added, append them here. Keep it concise and executable.
+
+## Repository map and checks
+
+- Install development tools from the repository root with `python -m pip install -e '.[dev]'` inside conda. Run `python tools/check.py` before delivery.
+- `contracts/schemas/`: canonical 1.0.0 schemas, included as installable resources. `contracts/examples/`: illustrative, non-executable assets.
+- `contractcheck/`: offline document/package validators and CLI. `deploy/`: numerical core, ports, lifecycle and output adapters.
+- Tests live in `contractcheck/tests/`, `deploy/tests/` and `tests/`. Dependency policy and test baseline are enforced by `tools/check_policy.py`; changing a boundary requires updating that explicit policy and its negative tests.
+- `docs/IMPLEMENTATION_HANDOFF.md` lists remaining adapter/producer tasks; `docs/CONTRACT_COVERAGE.md` records what verification does and does not establish.

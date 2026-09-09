@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "input_name": "images",
+  "dtype": "float32",
+  "layout": "NCHW",
+  "color_space": "RGB",
+  "width": 64,
+  "height": 64,
+  "resize": {
+    "mode": "stretch",
+    "interpolation": "bilinear"
+  },
+  "normalization": {
+    "scale": 0.00392156862745098,
+    "mean": [
+      0,
+      0,
+      0
+    ],
+    "std": [
+      1,
+      1,
+      1
+    ]
+  }
+}

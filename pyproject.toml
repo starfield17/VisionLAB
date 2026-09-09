@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contractcheck"
+version = "0.2.0"
+description = "Offline vision contracts and deployment core"
+requires-python = ">=3.10"
+dependencies = ["jsonschema>=4.18", "referencing>=0.30"]
+
+[project.optional-dependencies]
+deploy = ["numpy>=1.24"]
+dev = ["numpy>=1.24", "pytest>=8", "hypothesis>=6", "ruff>=0.9", "mypy>=1.10", "types-jsonschema", "build>=1", "wheel", "setuptools>=68"]
+
+[project.scripts]
+contractcheck = "contractcheck.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["contractcheck", "contracts", "contracts.schemas", "deploy", "deploy.sinks"]
+
+[tool.setuptools.package-data]
+contracts = ["schemas/*.json"]
+contractcheck = ["py.typed"]
+deploy = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["contractcheck/tests", "deploy/tests", "tests"]
+addopts = "--strict-markers"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["deploy", "contractcheck/package.py", "contractcheck/errors.py"]
+exclude = ["deploy/tests"]
+check_untyped_defs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["deploy.*"]
+disallow_untyped_defs = true

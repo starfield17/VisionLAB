@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "id": "training-001",
+  "stage": "training",
+  "created_at": "2026-01-01T00:00:00Z",
+  "implementation": {
+    "name": "fixture-only",
+    "version": "1",
+    "code_revision": "fixture-v1"
+  },
+  "config": {
+    "illustrative": true
+  },
+  "inputs": [
+    {
+      "role": "dataset",
+      "artifact": {
+        "path": "data/dataset.json",
+        "sha256": "6e6b6e5c538f343de09eead20a8fae08573efea2620de4ef9a3f5f19d87b729a"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "role": "model",
+      "artifact": {
+        "path": "model.fixture",
+        "sha256": "5ce32fc287f1b50b5cd5af9a61a2afab3996bd9a7a4421734d23a172b13915ac"
+      }
+    }
+  ]
+}

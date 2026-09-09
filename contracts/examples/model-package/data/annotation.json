@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ann-001",
+  "item_id": "item-001",
+  "image_sha256": "be7ea33051c971ec95cc7bec0b36dc86b4fb23c4358c7f9befa13fe86cf5d945",
+  "ontology_id": "shapes",
+  "ontology_version": "1",
+  "created_at": "2026-01-01T00:00:00Z",
+  "status": "approved",
+  "source": {
+    "kind": "human",
+    "actor_id": "reviewer-example",
+    "run_id": "review-001",
+    "tool_version": "1"
+  },
+  "review": {
+    "reviewer_id": "reviewer-example",
+    "reviewed_at": "2026-01-01T00:00:00Z",
+    "reason": "All objects checked; no missing instances."
+  },
+  "objects": [
+    {
+      "id": "obj-001",
+      "class_id": "circle",
+      "bbox": [
+        10,
+        10,
+        30,
+        30
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "preprocessing.schema.json",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "input_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dtype": {
+      "const": "float32"
+    },
+    "layout": {
+      "enum": [
+        "NCHW",
+        "NHWC"
+      ]
+    },
+    "color_space": {
+      "enum": [
+        "RGB",
+        "BGR"
+      ]
+    },
+    "width": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "height": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "resize": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "stretch"
+        },
+        "interpolation": {
+          "const": "bilinear"
+        }
+      },
+      "required": [
+        "mode",
+        "interpolation"
+      ],
+      "additionalProperties": false
+    },
+    "normalization": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "mean": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "std": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "scale",
+        "mean",
+        "std"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "input_name",
+    "dtype",
+    "layout",
+    "color_space",
+    "width",
+    "height",
+    "resize",
+    "normalization"
+  ],
+  "additionalProperties": false
+}

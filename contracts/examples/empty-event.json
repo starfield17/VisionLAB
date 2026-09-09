@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "event-002",
+  "captured_at": "2026-01-01T00:00:00Z",
+  "emitted_at": "2026-01-01T00:00:00Z",
+  "source": {
+    "id": "source-example",
+    "kind": "image",
+    "session_id": "session-001",
+    "frame_index": 1
+  },
+  "model": {
+    "package_id": "shapes-package-001",
+    "manifest_sha256": "631705adb6c6c93179ddda000675ab18ece2c396f2a6153d164c3430fab7cdf2"
+  },
+  "image": {
+    "width": 100,
+    "height": 80
+  },
+  "detections": []
+}

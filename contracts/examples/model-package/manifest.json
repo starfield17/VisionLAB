@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "shapes-package-001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "task": "object_detection",
+  "model": {
+    "artifact": {
+      "path": "model.fixture",
+      "sha256": "5ce32fc287f1b50b5cd5af9a61a2afab3996bd9a7a4421734d23a172b13915ac"
+    },
+    "format": "fixture",
+    "adapter": {
+      "id": "fixture",
+      "version": "1",
+      "config": {}
+    }
+  },
+  "labels": {
+    "path": "labels.json",
+    "sha256": "7bf4ef6738f3bbb19f816e11a112a95be14bf2c5bc987e21f19cf71ad46c2bff"
+  },
+  "preprocessing": {
+    "path": "preprocessing.json",
+    "sha256": "8f7106ece04e694a109965da38aad4091bcdfe7a06a17efd00fa317053baa669"
+  },
+  "postprocessing": {
+    "output_contract": "adapter_detections_v1",
+    "confidence_threshold": 0.25,
+    "nms": {
+      "mode": "class_aware",
+      "iou_threshold": 0.45
+    }
+  },
+  "trace": {
+    "dataset": {
+      "id": "shapes-example",
+      "version": "1",
+      "artifact": {
+        "path": "data/dataset.json",
+        "sha256": "6e6b6e5c538f343de09eead20a8fae08573efea2620de4ef9a3f5f19d87b729a"
+      }
+    },
+    "training": {
+      "id": "training-001",
+      "artifact": {
+        "path": "records/training.json",
+        "sha256": "2f66c1e7d66797f2ca6ad974b36fd34664dd01a85ef7ecc5e308a1c1b1dccb14"
+      }
+    },
+    "evaluation": {
+      "id": "evaluation-001",
+      "artifact": {
+        "path": "records/evaluation.json",
+        "sha256": "cac0532b0753354fee647d18a3fb0bc4db4bea7ec82b1c1c852a908b3b1244e0"
+      }
+    },
+    "export": {
+      "id": "export-001",
+      "artifact": {
+        "path": "records/export.json",
+        "sha256": "cc1f40df025e9d7ae729865bb0dd6b0d445c70d02e43860b010b69f5d48695c9"
+      }
+    }
+  }
+}

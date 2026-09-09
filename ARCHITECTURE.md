@@ -198,3 +198,11 @@ deploy/
 5. Move Serial to Sink; convert Edge/Remote to Profiles.
 6. After logical boundaries are stable, physically split into two repositories.
 7. Finally, do quantization, Remote Streaming, and new-model extension.
+
+## 7. Contract Baseline
+
+The implementation baseline is [Core Contracts 1.0.0](contracts/README.md), including JSON Schemas, linked illustrative examples, and semantic validation rules. The [implementation handoff](docs/IMPLEMENTATION_HANDOFF.md) defines the first coding slice. Contract v1 supports image object detection; wider preprocessing and task support require explicit versioned changes.
+
+## 8. Implemented Foundation
+
+The root Python distribution currently contains `contractcheck` (offline contracts) and `deploy` (synchronous numerical core and ports), plus the canonical schema resources. Deploy depends on contractcheck; the reverse dependency is forbidden by an executable check. Runtime adapters are statically composed with trusted metadata. No production model or input decoder is included yet. See [implementation handoff](docs/IMPLEMENTATION_HANDOFF.md) and [coverage](docs/CONTRACT_COVERAGE.md) before adding a concrete adapter.
