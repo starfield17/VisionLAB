@@ -1,5 +1,9 @@
 # Implementation handoff
 
+## Immediate priority: Auto Label → Train
+
+Follow [Auto Label / Train information](AUTOLABEL_TRAIN_INFORMATION.md) first. Use LocateAnything community Q4_K for candidate production and YOLO26n for training, with the provided low-memory profiles. Deploy work is paused. `model_lab/` supplies offline converters and a guarded subprocess runner; actual model execution and human review remain the next task.
+
 ## Current state
 
 The repository contains a working contract validator and tested synchronous deployment core. Read AGENTS.md, contracts/README.md, contractcheck/README.md and deploy/README.md. `python tools/check.py` is the acceptance gate, run inside a conda environment after `python -m pip install -e '.[dev]'`.
@@ -27,7 +31,7 @@ Dependency changes need matching `tools/check_policy.py` rules and a deliberate 
 | Network or Serial Sink | One module per protocol with explicit config | Encode contract event without importing inference; fake transport tests cover framing, partial writes, disconnect and close; document delivery guarantees |
 | Model Lab export | Model-producing capability outside Deploy Core | Reviewed dataset → selected traditional detector → evaluation → export with hash-linked records; valid real package, executable model and retained dataset; full audit plus actual runtime smoke test |
 
-Start with the real model adapter and image Source to get an actual image-to-event slice. Model/runtime choice remains intentionally open pending real deployment requirements; a model family is not an architectural assumption. Never turn the fixture adapter into production support, or invent a successful training result.
+After the Auto Label → Train milestone, resume the real model adapter and image Source to get an actual image-to-event slice. Model/runtime choice remains intentionally open pending real deployment requirements; a model family is not an architectural assumption. Never turn the fixture adapter into production support, or invent a successful training result.
 
 ## Acceptance for subsequent changes
 

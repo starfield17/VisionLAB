@@ -10,6 +10,7 @@ python tools/check.py
 
 For a validator-only installation, use `python -m pip install .`. To include deployment numerical processing, use `python -m pip install '.[deploy]'`.
 
+- [Next: Auto Label → Train](docs/AUTOLABEL_TRAIN_INFORMATION.md)
 - [Intent](INTENTION.md)
 - [Contract baseline](contracts/README.md)
 - [Validator usage](contractcheck/README.md)

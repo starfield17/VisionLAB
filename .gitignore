@@ -27,6 +27,9 @@ dist/
 workdir/
 reffer/
 
+# Ultralytics default output root (use model_lab train to redirect into workdir/)
+runs/
+
 # Logs and temp files
 *.log
 *.tmp

@@ -16,6 +16,14 @@
 - Consequence: contract JSON shapes remain unchanged; prose and validator documentation now specify the convention.
 - Follow-up: Model Lab producers must emit these fields and test against full audit.
 
+## Guard memory floor vs quantized checkpoint load
+
+- Trigger: the guarded probe stopped with `memory_limit` before the model produced any result.
+- Constraint: the 4.7 GB quantized checkpoint loads in a single process that peaks near 7 GB RSS (weights plus Metal/accelerator buffers and decode cache), and system available memory transiently dips below the default 3 GiB guard floor during load.
+- Resolution: measured peak RSS and available-memory floor, then reran the probe with an explicitly lowered floor recorded as an experiment (model load peak ~7 GiB, floor ~1 GiB). The smaller-image (448 longest side) retry did not change the outcome because the peak is dominated by the checkpoint, not the image.
+- Consequence: the guard worked as designed; `workdir` run dirs preserve raw JSON, stdout/stderr, guard result and immutable labeling-run records for every image.
+- Follow-up: a host intended for this labeling route must size available memory above the checkpoint peak plus the floor, or accept a documented floor override as an explicit experiment.
+
 ## UTC precision
 
 - Trigger: direct string comparison misordered timestamps with fractional seconds, while datetime alone loses sub-microsecond precision.

@@ -60,7 +60,7 @@ from deploy import Pipeline
 
 def main():
     run('tools/check_policy.py')
-    run('-m', 'ruff', 'check', 'contractcheck', 'contracts', 'deploy', 'tests', 'tools')
+    run('-m', 'ruff', 'check', 'contractcheck', 'contracts', 'deploy', 'model_lab', 'tests', 'tools')
     run('-m', 'mypy')
     run('-m', 'pytest', '-q')
     packaging_check()

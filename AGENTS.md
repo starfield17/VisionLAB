@@ -29,3 +29,6 @@ This document defines the rules that coding agents must follow when collaboratin
 - `contractcheck/`: offline document/package validators and CLI. `deploy/`: numerical core, ports, lifecycle and output adapters.
 - Tests live in `contractcheck/tests/`, `deploy/tests/` and `tests/`. Dependency policy and test baseline are enforced by `tools/check_policy.py`; changing a boundary requires updating that explicit policy and its negative tests.
 - `docs/IMPLEMENTATION_HANDOFF.md` lists remaining adapter/producer tasks; `docs/CONTRACT_COVERAGE.md` records what verification does and does not establish.
+
+- `model_lab/`: offline labeling/training preparation and guarded execution; next task is `docs/AUTOLABEL_TRAIN_INFORMATION.md`. Deploy integration is paused until the Auto Label → Train milestone.
+- All downloaded models, datasets, generated overlays, run logs, checkpoints, and other temporary execution artifacts MUST be stored under the repository-root `workdir/` directory. `workdir/` is ignored by Git and must not be used for source code, schemas, or committed documentation.

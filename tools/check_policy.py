@@ -25,10 +25,18 @@ LAYERS = {
     'deploy': {'deploy.types', 'deploy.registry', 'deploy.pipeline'},
     'deploy.sinks': {'deploy.sinks.stdout'},
     'deploy.sinks.stdout': set(),
+    'model_lab': set(),
+    'model_lab.acquisition': set(),
+    'model_lab.conversion': set(),
+    'model_lab.guard': set(),
+    'model_lab.overlay': set(),
+    'model_lab.records': set(),
+    'model_lab.train': set(),
+    'model_lab.__main__': {'model_lab.conversion', 'model_lab.overlay', 'model_lab.guard', 'model_lab.train'},
     'contracts': set(),
     'contracts.schemas': set(),
 }
-EXTERNAL = {'contractcheck': {'jsonschema', 'referencing'}, 'deploy': {'numpy', 'contractcheck'}, 'contracts': set()}
+EXTERNAL = {'model_lab': {'contractcheck', 'PIL', 'psutil'}, 'contractcheck': {'jsonschema', 'referencing'}, 'deploy': {'numpy', 'contractcheck'}, 'contracts': set()}
 
 
 def imports(tree, module, is_package):
@@ -76,7 +84,7 @@ def boundary_errors(root: Path) -> list[str]:
 def test_inventory(root: Path):
     inventory = {}
     errors = []
-    for pattern in ('contractcheck/tests/test_*.py', 'deploy/tests/test_*.py', 'tests/test_*.py'):
+    for pattern in ('contractcheck/tests/test_*.py', 'deploy/tests/test_*.py', 'model_lab/tests/test_*.py', 'tests/test_*.py'):
         for path in root.glob(pattern):
             tree = ast.parse(path.read_text(encoding='utf-8'))
             for node in ast.walk(tree):

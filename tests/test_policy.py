@@ -29,3 +29,10 @@ def test_disabled_tests_detected(tmp_path):
     inventory, errors = policy.test_inventory(tmp_path)
     assert inventory == {'tests/test_disabled.py::test_bad': 1}
     assert errors == ['tests/test_disabled.py: disabled test marker is forbidden']
+
+
+def test_model_lab_cannot_depend_on_deploy(tmp_path):
+    folder = tmp_path / 'model_lab'
+    folder.mkdir()
+    (folder / 'conversion.py').write_text('import deploy\n')
+    assert policy.boundary_errors(tmp_path) == ['model_lab.conversion: forbidden external import deploy']
