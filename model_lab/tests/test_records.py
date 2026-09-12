@@ -48,7 +48,7 @@ def test_labeling_record_is_an_independent_snapshot():
 
 def test_labeling_record_rejects_machine_paths():
     record = make_record()
-    record['command']['args'] = ['--input', '/Users/ray/secret/canonical.png']
+    record['command']['args'] = ['--input', '/absolute/host/secret/canonical.png']
     with pytest.raises(ValueError):
         labeling_record(record)
 

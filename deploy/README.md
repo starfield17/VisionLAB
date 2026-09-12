@@ -1,6 +1,12 @@
 # Deployment core
 
-The core runs a synchronous single-model object-detection pipeline. Install with `python -m pip install '.[deploy]'` in an activated conda environment. The package includes no real model adapter or image decoder yet.
+The core runs a synchronous single-model object-detection pipeline. Install with `python -m pip install '.[deploy]'` for the numerical core, or `'.[runtime]'` to add the concrete image-file Source and the ONNX Runtime detection adapter, in an activated conda environment.
+
+```sh
+python -m deploy detect --package <package-dir> --image <image-file>
+```
+
+The command validates the package, decodes exactly one oriented image, runs contract preprocessing, decodes detections through the statically registered ONNX adapter, validates one Detection Event and writes it as JSONL to stdout. A corrupt image, an unknown adapter or any validation failure exits nonzero and never emits an empty success event.
 
 ## Public surface
 
@@ -33,4 +39,6 @@ Exactly one event is written for each successful frame, including legitimate emp
 
 `StdoutSink` writes one strict JSON object per line and flushes it. It does not close the caller's stream. A failed stream write can have partially written bytes; the core cannot make arbitrary sinks transactional or claim exactly-once delivery.
 
-`deploy/tests/test_core.py` demonstrates the whole composition using two test adapters, a memory Source, and memory/JSONL sinks. Test doubles are never registered as production implementations.
+`ImageFileSource` owns decode policy (EXIF orientation, grayscale/alpha to three channels) and reports the file's acquisition time; it emits one frame and then EOF. `OnnxDetectorAdapter` accepts only the declared end-to-end detection layout, maps class indices through the package label mapping, inverts the documented stretch transform and never resizes or letterboxes. The dependency checker keeps `onnxruntime` and image libraries out of the core modules.
+
+`deploy/tests/test_core.py` demonstrates the whole composition using test doubles, while `deploy/tests/test_deploy_cli.py` drives the CLI through a fixture package. Test doubles are never registered as production implementations.

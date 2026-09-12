@@ -36,3 +36,38 @@ def test_model_lab_cannot_depend_on_deploy(tmp_path):
     folder.mkdir()
     (folder / 'conversion.py').write_text('import deploy\n')
     assert policy.boundary_errors(tmp_path) == ['model_lab.conversion: forbidden external import deploy']
+
+
+def test_core_cannot_import_the_runtime(tmp_path):
+    folder = tmp_path / 'deploy'
+    folder.mkdir()
+    (folder / 'pipeline.py').write_text('import onnxruntime\n')
+    assert policy.boundary_errors(tmp_path) == ['deploy.pipeline: forbidden external import onnxruntime']
+
+
+def test_core_sinks_cannot_import_an_image_library(tmp_path):
+    folder = tmp_path / 'deploy' / 'sinks'
+    folder.mkdir(parents=True)
+    (folder / 'stdout.py').write_text('from PIL import Image\n')
+    assert policy.boundary_errors(tmp_path) == ['deploy.sinks.stdout: forbidden external import PIL']
+
+
+def test_model_lab_orchestration_cannot_import_a_training_framework(tmp_path):
+    folder = tmp_path / 'model_lab'
+    folder.mkdir()
+    (folder / 'evaluation.py').write_text('from ultralytics import YOLO\n')
+    assert policy.boundary_errors(tmp_path) == ['model_lab.evaluation: forbidden external import ultralytics']
+
+
+def test_guarded_runner_may_import_the_training_framework(tmp_path):
+    folder = tmp_path / 'model_lab' / 'runners'
+    folder.mkdir(parents=True)
+    (folder / 'yolo_val.py').write_text('from ultralytics import YOLO\n')
+    assert policy.boundary_errors(tmp_path) == []
+
+
+def test_contractcheck_cannot_import_numpy(tmp_path):
+    folder = tmp_path / 'contractcheck'
+    folder.mkdir()
+    (folder / 'dataset.py').write_text('import numpy\n')
+    assert policy.boundary_errors(tmp_path) == ['contractcheck.dataset: forbidden external import numpy']

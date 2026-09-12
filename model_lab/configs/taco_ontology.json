@@ -1,0 +1,91 @@
+{
+  "ontology": {
+    "id": "litter-material",
+    "version": "1",
+    "classes": [
+      {
+        "id": "plastic",
+        "label": "plastic"
+      },
+      {
+        "id": "metal",
+        "label": "metal"
+      },
+      {
+        "id": "glass",
+        "label": "glass"
+      },
+      {
+        "id": "paper",
+        "label": "paper"
+      },
+      {
+        "id": "other",
+        "label": "other"
+      }
+    ]
+  },
+  "categories": {
+    "Cigarette": "other",
+    "Unlabeled litter": "other",
+    "Plastic film": "plastic",
+    "Clear plastic bottle": "plastic",
+    "Other plastic": "plastic",
+    "Other plastic wrapper": "plastic",
+    "Drink can": "metal",
+    "Plastic bottle cap": "plastic",
+    "Plastic straw": "plastic",
+    "Broken glass": "glass",
+    "Styrofoam piece": "other",
+    "Glass bottle": "glass",
+    "Disposable plastic cup": "plastic",
+    "Pop tab": "metal",
+    "Other carton": "paper",
+    "Normal paper": "paper",
+    "Metal bottle cap": "metal",
+    "Plastic lid": "plastic",
+    "Paper cup": "paper",
+    "Corrugated carton": "paper",
+    "Aluminium foil": "metal",
+    "Single-use carrier bag": "plastic",
+    "Other plastic bottle": "plastic",
+    "Drink carton": "paper",
+    "Tissues": "paper",
+    "Crisp packet": "plastic",
+    "Disposable food container": "plastic",
+    "Plastic utensils": "plastic",
+    "Food Can": "metal",
+    "Garbage bag": "plastic",
+    "Meal carton": "paper",
+    "Rope & strings": "other",
+    "Paper bag": "paper",
+    "Scrap metal": "metal",
+    "Foam food container": "other",
+    "Foam cup": "other",
+    "Magazine paper": "paper",
+    "Wrapping paper": "paper",
+    "Egg carton": "paper",
+    "Aerosol": "metal",
+    "Metal lid": "metal",
+    "Spread tub": "plastic",
+    "Food waste": "other",
+    "Squeezable tube": "plastic",
+    "Shoe": "other",
+    "Glass cup": "glass",
+    "Glass jar": "glass",
+    "Aluminium blister pack": "metal",
+    "Other plastic container": "plastic",
+    "Toilet tube": "paper",
+    "Six pack rings": "plastic",
+    "Paper straw": "paper",
+    "Plastic glooves": "plastic",
+    "Plastified paper bag": "paper",
+    "Tupperware": "plastic",
+    "Polypropylene bag": "plastic",
+    "Pizza box": "paper",
+    "Battery": "other",
+    "Other plastic cup": "plastic",
+    "Carded blister pack": "plastic"
+  },
+  "ignore": []
+}

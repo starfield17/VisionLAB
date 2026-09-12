@@ -10,22 +10,25 @@ requires-python = ">=3.10"
 dependencies = ["jsonschema>=4.18", "referencing>=0.30"]
 
 [project.optional-dependencies]
-lab = ["psutil>=5.9", "Pillow>=10"]
+lab = ["psutil>=5.9", "Pillow>=10", "PyYAML>=6"]
 train = ["ultralytics==8.4.145"]
 deploy = ["numpy>=1.24"]
-dev = ["psutil>=5.9", "numpy>=1.24", "pytest>=8", "hypothesis>=6", "ruff>=0.9", "mypy>=1.10", "types-jsonschema", "build>=1", "wheel", "setuptools>=68"]
+export = ["onnx>=1.16", "onnxruntime>=1.17"]
+runtime = ["numpy>=1.24", "Pillow>=10", "onnxruntime>=1.17"]
+dev = ["psutil>=5.9", "numpy>=1.24", "Pillow>=10", "pytest>=8", "hypothesis>=6", "ruff>=0.9", "mypy>=1.10", "types-jsonschema", "build>=1", "wheel", "setuptools>=68"]
 
 [project.scripts]
 contractcheck = "contractcheck.cli:main"
+visionlab-deploy = "deploy.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["contractcheck", "contracts", "contracts.schemas", "deploy", "deploy.sinks", "model_lab"]
+include = ["contractcheck", "contracts", "contracts.schemas", "deploy", "deploy.adapters", "deploy.sinks", "deploy.sources", "model_lab", "model_lab.runners"]
 
 [tool.setuptools.package-data]
 contracts = ["schemas/*.json"]
-model_lab = ["configs/*.yaml"]
+model_lab = ["configs/*.yaml", "configs/*.json"]
 contractcheck = ["py.typed"]
-deploy = ["py.typed"]
+deploy = ["py.typed", "adapters/specs/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["contractcheck/tests", "deploy/tests", "model_lab/tests", "tests"]

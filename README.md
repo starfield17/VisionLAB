@@ -10,7 +10,8 @@ python tools/check.py
 
 For a validator-only installation, use `python -m pip install .`. To include deployment numerical processing, use `python -m pip install '.[deploy]'`.
 
-- [Next: Auto Label → Train](docs/AUTOLABEL_TRAIN_INFORMATION.md)
+- [Current round: public dataset → Model Package](docs/PUBLIC_DATASET_ROUND.md)
+- [Auto Label → Train record](docs/AUTOLABEL_TRAIN_INFORMATION.md)
 - [Intent](INTENTION.md)
 - [Contract baseline](contracts/README.md)
 - [Validator usage](contractcheck/README.md)
@@ -18,4 +19,4 @@ For a validator-only installation, use `python -m pip install .`. To include dep
 - [Implementation status and next tasks](docs/IMPLEMENTATION_HANDOFF.md)
 - [Contract coverage](docs/CONTRACT_COVERAGE.md)
 
-The included model/image `.fixture` files are illustrative text, not executable assets. The deployment tests exercise the full pipeline with test-only adapters; no real model accuracy or runtime support is claimed.
+The included model/image `.fixture` files are illustrative text, not executable assets. Unit tests exercise the pipeline with test-only doubles; real runtime support is demonstrated by running an audited Model Package through `python -m deploy detect`, and no accuracy claim is made for any trained model.

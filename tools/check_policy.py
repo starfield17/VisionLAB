@@ -25,18 +25,50 @@ LAYERS = {
     'deploy': {'deploy.types', 'deploy.registry', 'deploy.pipeline'},
     'deploy.sinks': {'deploy.sinks.stdout'},
     'deploy.sinks.stdout': set(),
+    'deploy.adapters': {'deploy.adapters.onnx_detector'},
+    'deploy.adapters.onnx_detector': {'deploy.types'},
+    'deploy.sources': {'deploy.sources.image_file'},
+    'deploy.sources.image_file': {'deploy.types'},
+    'deploy.compose': {'deploy.adapters.onnx_detector', 'deploy.registry'},
+    'deploy.cli': {'deploy.compose', 'deploy.pipeline', 'deploy.sinks.stdout', 'deploy.sources.image_file'},
+    'deploy.__main__': {'deploy.cli'},
     'model_lab': set(),
     'model_lab.acquisition': set(),
     'model_lab.conversion': set(),
+    'model_lab.evaluation': {'model_lab.guard', 'model_lab.runrecords'},
+    'model_lab.export': {'model_lab.guard', 'model_lab.runrecords'},
     'model_lab.guard': set(),
+    'model_lab.ingest': {'model_lab.acquisition', 'model_lab.runrecords'},
     'model_lab.overlay': set(),
+    'model_lab.package': {'model_lab.runrecords'},
+    'model_lab.preflight': set(),
     'model_lab.records': set(),
+    'model_lab.runrecords': set(),
+    'model_lab.runners': {'model_lab.runners.onnx_probe', 'model_lab.runners.yolo_val'},
+    'model_lab.runners.onnx_probe': set(),
+    'model_lab.runners.yolo_val': set(),
     'model_lab.train': set(),
-    'model_lab.__main__': {'model_lab.conversion', 'model_lab.overlay', 'model_lab.guard', 'model_lab.train'},
+    'model_lab.__main__': {'model_lab.conversion', 'model_lab.overlay', 'model_lab.guard', 'model_lab.train',
+                           'model_lab.ingest', 'model_lab.preflight', 'model_lab.runrecords',
+                           'model_lab.evaluation', 'model_lab.export', 'model_lab.package'},
     'contracts': set(),
     'contracts.schemas': set(),
 }
 EXTERNAL = {'model_lab': {'contractcheck', 'PIL', 'psutil'}, 'contractcheck': {'jsonschema', 'referencing'}, 'deploy': {'numpy', 'contractcheck'}, 'contracts': set()}
+# Runtime frameworks stay inside concrete boundary modules; Core, the validator
+# and Model Lab orchestration never import them.
+MODULE_EXTERNAL = {
+    'deploy.adapters.onnx_detector': {'numpy', 'onnxruntime', 'contractcheck'},
+    'deploy.sources.image_file': {'numpy', 'PIL', 'contractcheck'},
+    'model_lab.evaluation': {'contractcheck', 'yaml'},
+    'model_lab.export': {'contractcheck'},
+    'model_lab.ingest': {'contractcheck', 'PIL'},
+    'model_lab.package': {'contractcheck'},
+    'model_lab.preflight': {'contractcheck'},
+    'model_lab.runrecords': {'contractcheck', 'yaml'},
+    'model_lab.runners.onnx_probe': {'numpy', 'cv2', 'onnx', 'onnxruntime', 'PIL', 'ultralytics'},
+    'model_lab.runners.yolo_val': {'ultralytics'},
+}
 
 
 def imports(tree, module, is_package):
@@ -73,7 +105,7 @@ def boundary_errors(root: Path) -> list[str]:
                 if top == package:
                     if target not in LAYERS[module]:
                         errors.append(f'{module}: forbidden internal import {target}')
-                elif top not in sys.stdlib_module_names and top not in allowed:
+                elif top not in sys.stdlib_module_names and top not in MODULE_EXTERNAL.get(module, allowed):
                     errors.append(f'{module}: forbidden external import {target}')
             for node in ast.walk(tree):
                 if isinstance(node, ast.Call) and (getattr(node.func, 'id', '') in ('__import__', 'eval', 'exec') or getattr(node.func, 'attr', '') == 'import_module'):

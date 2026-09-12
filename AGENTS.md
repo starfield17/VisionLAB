@@ -30,5 +30,6 @@ This document defines the rules that coding agents must follow when collaboratin
 - Tests live in `contractcheck/tests/`, `deploy/tests/` and `tests/`. Dependency policy and test baseline are enforced by `tools/check_policy.py`; changing a boundary requires updating that explicit policy and its negative tests.
 - `docs/IMPLEMENTATION_HANDOFF.md` lists remaining adapter/producer tasks; `docs/CONTRACT_COVERAGE.md` records what verification does and does not establish.
 
-- `model_lab/`: offline labeling/training preparation and guarded execution; next task is `docs/AUTOLABEL_TRAIN_INFORMATION.md`. Deploy integration is paused until the Auto Label → Train milestone.
+- `model_lab/`: offline dataset ingestion, labeling/training preparation, guarded execution, evaluation, export and Model Package assembly. The Auto Label → Train milestone is recorded in `docs/AUTOLABEL_TRAIN_INFORMATION.md`; the current round is `docs/PUBLIC_DATASET_ROUND.md`.
+- `deploy/`: synchronous numerical core and ports plus one real image-file Source and one ONNX Runtime detection adapter. Real packages are run with `python -m deploy detect --package <dir> --image <file>`.
 - All downloaded models, datasets, generated overlays, run logs, checkpoints, and other temporary execution artifacts MUST be stored under the repository-root `workdir/` directory. `workdir/` is ignored by Git and must not be used for source code, schemas, or committed documentation.

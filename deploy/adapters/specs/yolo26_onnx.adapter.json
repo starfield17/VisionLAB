@@ -1,0 +1,24 @@
+{
+  "id": "yolo26-onnx-detections",
+  "version": "1",
+  "formats": [
+    "onnx"
+  ],
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "decoder": {
+        "const": "end2end_detections_v1"
+      },
+      "max_detections": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "required": [
+      "decoder",
+      "max_detections"
+    ],
+    "additionalProperties": false
+  }
+}
